@@ -1,0 +1,10 @@
+const express = require("express");
+const routes = require("./routers/index.js");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+dotenv.config();
+const server = express();
+
+server.use(morgan("dev"));
+server.use("/", routes);
+module.exports = server;
