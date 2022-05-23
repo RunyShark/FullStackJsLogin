@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const routerVeterinarios = require("./veterinarios");
-const routerLogin = require("./loginVeterinarios");
+const routerVeterinarios = require("./controllers/veterinarios");
+const routerLogin = require("./controllers/loginVeterinarios");
 
 const router = Router();
 
