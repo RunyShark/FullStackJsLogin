@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { generarId } = require("../helpers/generarId.js");
 const veterinarioSchema = mongoose.Schema({
   nombre: {
     type: String,
@@ -18,19 +18,20 @@ const veterinarioSchema = mongoose.Schema({
   },
   telefono: {
     type: Number,
-    detault: null,
+    default: null,
     trim: true,
   },
   web: {
     type: String,
-    detault: null,
+    default: null,
   },
   toke: {
     type: String,
+    default: generarId(),
   },
   confirmado: {
     type: Boolean,
-    detault: false,
+    default: false,
   },
 });
 

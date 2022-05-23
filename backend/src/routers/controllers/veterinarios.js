@@ -4,7 +4,7 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { email } = req.body;
+    const { nombre, email, password, telefono, web } = req.body;
     const existeUsuario = await Veterinario.findOne({ email });
     if (existeUsuario) {
       const error = new Error("Usuario ya regristrado");
