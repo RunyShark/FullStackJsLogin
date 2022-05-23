@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { Veterinario } = require("../../models/Veterinario");
+const { generarJWT } = require("../../helpers/generarJWT.js");
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.post("/", async (req, res) => {
     }
 
     if (await userExite.comprobarPassword(password)) {
-      res.json({ msg: "Password correcto" });
+      res.json({ token: generarJWT(userExite.id) });
     } else {
       res.status(403).json({ msg: "Password incorrecto" });
     }
