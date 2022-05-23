@@ -7,5 +7,5 @@ const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
-server.use("/", routes);
+server.use("/api", routes);
 module.exports = server;

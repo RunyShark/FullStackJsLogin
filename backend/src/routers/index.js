@@ -7,6 +7,6 @@ const router = Router();
 
 router.use("/login", routerLogin);
 router.use("/perfil", routerPerfil);
-router.use("/api/veterinarios", routerVeteRegistro);
+router.use("/veterinarios", routerVeteRegistro);
 
 module.exports = router;
