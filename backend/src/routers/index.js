@@ -6,9 +6,9 @@ const routerConfirmar = require("./controllers/confirmar");
 
 const router = Router();
 
-router.use("/login", routerLogin);
+router.use("/veterinarios", routerVeteRegistro);
+router.use("/veterinarios/login", routerLogin);
 router.use("/confirmar", routerConfirmar);
 router.use("/perfil", routerPerfil);
-router.use("/veterinarios", routerVeteRegistro);
 
 module.exports = router;
