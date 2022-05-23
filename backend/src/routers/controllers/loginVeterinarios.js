@@ -9,18 +9,18 @@ router.post("/", async (req, res) => {
     const userExite = await Veterinario.findOne({ email });
     if (!userExite) {
       const error = new Error("El usuario no existe");
-      res.status(404).json({ msg: error.message });
+      return res.status(404).json({ msg: error.message });
     }
 
     if (!userExite.confirmado) {
       const error = new Error("Tu cuenta no se confirmo");
-      res.status(403).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
 
     if (await userExite.comprobarPassword(password)) {
-      console.log("Password correcto");
+      res.json({ msg: "Password correcto" });
     } else {
-      console.log("Password incorrecto");
+      res.status(403).json({ msg: "Password incorrecto" });
     }
   } catch (error) {
     res.status(404).json({ msg: `Error el usuario no existe ${error}` });
