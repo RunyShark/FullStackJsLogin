@@ -11,7 +11,7 @@ router.get("/:toke", async (req, res) => {
 
     if (!usuarioConfirmar) {
       const error = new Error("Vuelva a intentar token no valido");
-      res.status(404).json({ msg: error.message });
+      return res.status(404).json({ msg: error.message });
     }
     usuarioConfirmar.toke = null;
     usuarioConfirmar.confirmado = true;
