@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Veterinario } = require("../../models/Veterinario.js");
+const { Veterinario } = require("../../../models/Veterinario");
 
 const router = Router();
 

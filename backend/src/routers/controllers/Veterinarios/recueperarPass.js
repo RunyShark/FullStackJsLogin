@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { Veterinario } = require("../../models/Veterinario");
-const { generarId } = require("../../helpers/generarId");
+const { Veterinario } = require("../../../models/Veterinario");
+const { generarId } = require("../../../helpers/generarId");
 
 const router = Router();
 

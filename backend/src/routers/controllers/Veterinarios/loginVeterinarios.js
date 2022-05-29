@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { Veterinario } = require("../../models/Veterinario");
-const { generarJWT } = require("../../helpers/generarJWT.js");
+const { Veterinario } = require("../../../models/Veterinario");
+const { generarJWT } = require("../../../helpers/generarJWT.js");
 
 const router = Router();
 

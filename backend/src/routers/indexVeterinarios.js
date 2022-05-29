@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const routerVeteRegistro = require("./controllers/veterinarios");
-const routerLogin = require("./controllers/loginVeterinarios");
-const routerPerfil = require("./controllers/perfil");
-const routerConfirmar = require("./controllers/confirmar");
-const routerRucperarpassword = require("./controllers/recueperarPass");
+const routerVeteRegistro = require("./controllers/Veterinarios/veterinarios");
+const routerLogin = require("./controllers/Veterinarios/loginVeterinarios");
+const routerPerfil = require("./controllers/Veterinarios/perfil");
+const routerConfirmar = require("./controllers/Veterinarios/confirmar");
+const routerRucperarpassword = require("./controllers/Veterinarios/recueperarPass");
 const { checkAuth } = require("../middleware/authMiddleware");
 
 const router = Router();
