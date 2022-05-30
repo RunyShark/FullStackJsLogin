@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../../store/actions";
 
 const validation = (values) => {
   const errors = {};
@@ -35,8 +37,8 @@ const validation = (values) => {
 };
 
 const Registrar = () => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
-
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -51,6 +53,8 @@ const Registrar = () => {
   };
   const handleSubmit = (e) => {
     e.preventdefault();
+    dispatch(register({ form }));
+    setForm("");
   };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
