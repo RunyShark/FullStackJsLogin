@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 const validation = (values) => {
   const errors = {};
   let pattern = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{3,30}$$/;
   let regexComments = /^.{1,300}$/;
-  let correo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  let correo = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
   if (!values.nombre.trim()) {
     errors.nombre = "El campo es requerido";
   } else if (!pattern.test(!values.nombre.trim())) {
@@ -13,12 +14,17 @@ const validation = (values) => {
   }
   if (!values.email.trim()) {
     errors.email = "El campo es requerido";
-  } else if (!correo.test(!values.email.trim())) {
-    errors.email = "¡Debe de ser un correo valido!";
   }
 
   if (!values.password.trim()) {
     errors.password = "El campo es requerido";
+  } else if (values.password.length < 5) {
+    errors.password = "Constraseña muy corta";
+  }
+  if (!values.passwordRepit.trim()) {
+    errors.passwordRepit = "El campo es requerido";
+  } else if (values.passwordRepit !== values.password) {
+    errors.passwordRepit = "Las contraseñas no coinciden";
   }
 
   if (!values.telefono.trim()) {
@@ -30,6 +36,7 @@ const validation = (values) => {
 
 const Registrar = () => {
   const [errors, setErrors] = useState({});
+
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -37,6 +44,7 @@ const Registrar = () => {
     passwordRepit: "",
     telefono: "",
   });
+
   const handleOnblur = (e) => {
     handleChange(e);
     setErrors(validation(form));
@@ -127,8 +135,8 @@ const Registrar = () => {
                 required
                 className="border w-full p-3 mt-3 bg-gray-50 rounded"
               />
-              {errors.password && (
-                <p className="text-red-600 text-sm">{errors.password}</p>
+              {errors.passwordRepit && (
+                <p className="text-red-600 text-sm">{errors.passwordRepit}</p>
               )}
             </label>
           </div>
@@ -151,11 +159,25 @@ const Registrar = () => {
             </label>
           </div>
 
-          <input
+          <button
             type="submit"
-            value="Crear cuenta"
             className="bg-indigo-700 w-full py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto "
-          />
+            disabled={
+              form.password === ""
+                ? true
+                : false || form.nombre === ""
+                ? true
+                : false || form.email === ""
+                ? true
+                : false || form.passwordRepit === ""
+                ? true
+                : false || form.telefono === ""
+                ? true
+                : false
+            }
+          >
+            Crear cuenta
+          </button>
         </form>
 
         <nav className="mt-7">
