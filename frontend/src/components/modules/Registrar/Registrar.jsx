@@ -52,9 +52,15 @@ const Registrar = () => {
     setErrors(validation(form));
   };
   const handleSubmit = (e) => {
-    e.preventdefault();
-    dispatch(register({ form }));
-    setForm("");
+    e.preventDefault();
+    dispatch(register(form));
+    setForm({
+      nombre: "",
+      email: "",
+      password: "",
+      passwordRepit: "",
+      telefono: "",
+    });
   };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -163,8 +169,9 @@ const Registrar = () => {
             </label>
           </div>
 
-          <button
+          <input
             type="submit"
+            value="Enviar registro"
             className="bg-indigo-700 w-full py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto "
             disabled={
               form.password === ""
@@ -179,9 +186,7 @@ const Registrar = () => {
                 ? true
                 : false
             }
-          >
-            Crear cuenta
-          </button>
+          />
         </form>
 
         <nav className="mt-7">
