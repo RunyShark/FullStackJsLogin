@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../../store/actions";
+import Alerta from "../../helpers/Alerta";
 
 const validation = (values) => {
   const errors = {};
@@ -39,6 +40,7 @@ const validation = (values) => {
 const Registrar = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const [alerta, setAlerta] = useState({});
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -54,6 +56,13 @@ const Registrar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(form));
+    setAlerta({
+      msg: "Revisa tu email para confirmar la cuenta",
+      error: false,
+    });
+    setTimeout(() => {
+      setAlerta({});
+    }, 6000);
     setForm({
       nombre: "",
       email: "",
@@ -65,7 +74,7 @@ const Registrar = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  const { msg } = alerta;
   return (
     <>
       <div>
@@ -75,6 +84,7 @@ const Registrar = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+        {msg && <Alerta alerta={alerta} />}
         <form onSubmit={handleSubmit}>
           <div>
             <label className="uppercase text-gray-600  block text-xl font-bold mt-3">
