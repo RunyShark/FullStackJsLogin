@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { register } from "../../../store/actions";
+import axios from "axios";
+//import { useDispatch, useSelector } from "react-redux";
+//import { register } from "../../../store/actions";
 import Alerta from "../../helpers/Alerta";
 
 const validation = (values) => {
@@ -38,7 +39,8 @@ const validation = (values) => {
 };
 
 const Registrar = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
+  //const { errosBack } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
   const [alerta, setAlerta] = useState({});
   const [form, setForm] = useState({
@@ -54,23 +56,52 @@ const Registrar = () => {
     setErrors(validation(form));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(register(form));
-    setAlerta({
-      msg: "Revisa tu email para confirmar la cuenta",
-      error: false,
-    });
-    setTimeout(() => {
-      setAlerta({});
-    }, 6000);
-    // setForm({
-    //   nombre: "",
-    //   email: "",
-    //   password: "",
-    //   passwordRepit: "",
-    //   telefono: "",
-    // });
+    try {
+      await axios.post(`http://localhost:4000/api/veterinarios`, form);
+      setAlerta({
+        msg: "Revisa tu email para confirmar la cuenta",
+        error: false,
+      });
+      setForm({
+        nombre: "",
+        email: "",
+        password: "",
+        passwordRepit: "",
+        telefono: "",
+      });
+      setTimeout(() => {
+        setAlerta({});
+      }, 4000);
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      });
+      setTimeout(() => {
+        setAlerta({});
+      }, 5000);
+    }
+    // dispatch(register(form));
+    // if (!errosBack) {
+    //   setAlerta({
+    //     msg: "Revisa tu email para confirmar la cuenta",
+    //     error: false,
+    //   });
+    //   setTimeout(() => {
+    //     setAlerta({});
+    //   }, 3000);
+    // } else {
+    //   setAlerta({
+    //     msg: errosBack,
+    //     error: true,
+    //   });
+    //   setTimeout(() => {
+    //     setAlerta({});
+    //     window.location.reload(alert(errosBack));
+    //   }, 5000);
+    // }
   };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

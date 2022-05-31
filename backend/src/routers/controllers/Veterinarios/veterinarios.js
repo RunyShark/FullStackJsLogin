@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
     const { nombre, email, password, telefono, web } = req.body;
     const existeUsuario = await Veterinario.findOne({ email });
     if (existeUsuario) {
-      const error = new Error("Usuario ya regristrado");
+      const error = new Error("El correo ya existe");
       res.status(400).json({ msg: error.message });
     } else {
       const newVeterinario = new Veterinario(req.body);

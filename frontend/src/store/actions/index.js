@@ -11,7 +11,6 @@ export const register = (data) => {
       );
       return reps;
     } catch (error) {
-      console.log(error.response.data.msg);
       return dispatch({ type: REGISTER, payload: error.response.data.msg });
     }
   };
