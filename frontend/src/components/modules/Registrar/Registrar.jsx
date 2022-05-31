@@ -53,6 +53,7 @@ const Registrar = () => {
     handleChange(e);
     setErrors(validation(form));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(form));
@@ -63,13 +64,13 @@ const Registrar = () => {
     setTimeout(() => {
       setAlerta({});
     }, 6000);
-    setForm({
-      nombre: "",
-      email: "",
-      password: "",
-      passwordRepit: "",
-      telefono: "",
-    });
+    // setForm({
+    //   nombre: "",
+    //   email: "",
+    //   password: "",
+    //   passwordRepit: "",
+    //   telefono: "",
+    // });
   };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
