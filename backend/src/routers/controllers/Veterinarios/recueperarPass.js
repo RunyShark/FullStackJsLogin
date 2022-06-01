@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Veterinario } = require("../../../models/Veterinario");
 const { generarId } = require("../../../helpers/generarId");
+const { recuperarContra } = require("../../../helpers/emailRecuperarPass");
 
 const router = Router();
 
@@ -16,6 +17,11 @@ router.post("/", async (req, res) => {
 
     exiteEmail.toke = generarId();
     await exiteEmail.save();
+    recuperarContra({
+      email,
+      nombre: exiteEmail.nombre,
+      toke: exiteEmail.toke,
+    });
     res.json({ msg: "Hemos enviado un email con las instrucciones" });
   } catch (error) {
     console.log(error);

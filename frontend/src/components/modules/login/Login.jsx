@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 const validation = (values) => {
   const errors = {};
-  let pattern = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{3,30}$$/;
-  let regexComments = /^.{1,300}$/;
+
   let correo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
   if (!values.email.trim()) {

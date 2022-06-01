@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Veterinario } = require("../../../models/Veterinario.js");
 const router = Router();
+const { emailRegistro } = require("../../../helpers/emailRegistro");
 
 router.post("/", async (req, res) => {
   try {
@@ -12,6 +13,13 @@ router.post("/", async (req, res) => {
     } else {
       const newVeterinario = new Veterinario(req.body);
       const addVeterinario = await newVeterinario.save();
+
+      emailRegistro({
+        email,
+        nombre,
+        toke: addVeterinario.toke,
+      });
+
       res.json(addVeterinario);
     }
   } catch (error) {

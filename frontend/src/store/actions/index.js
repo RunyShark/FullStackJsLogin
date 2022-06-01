@@ -1,19 +1,15 @@
 import axios from "axios";
-export const REGISTER = "REGISTER";
-export const GETVETERINARIOS = "GETVETERINARIOS";
+export const CONFIRMARCUENTA = "CONFIRMARCUENTA";
 
-export const register = (data) => {
+export const crCuenta = () => {
   return async (dispatch) => {
     try {
-      const reps = await axios.post(
-        `http://localhost:4000/api/veterinarios`,
-        data
-      );
-      return reps;
+      const resp = await axios({
+        method: "GET",
+      });
+      return dispatch({ type: CONFIRMARCUENTA, payload: resp.data });
     } catch (error) {
-      return dispatch({ type: REGISTER, payload: error.response.data.msg });
+      console.log(error);
     }
   };
 };
-
-export const getVeterinaros = () => {};

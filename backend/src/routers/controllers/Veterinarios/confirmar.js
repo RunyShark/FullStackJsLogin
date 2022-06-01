@@ -16,7 +16,7 @@ router.get("/:toke", async (req, res) => {
     usuarioConfirmar.toke = null;
     usuarioConfirmar.confirmado = true;
     await usuarioConfirmar.save();
-    res.json({ msg: "Registro exitoso" });
+    return res.json({ msg: "Registro exitoso" });
   } catch (error) {
     res.status(404).json({ msg: `Peticion no valida ${error}` });
   }

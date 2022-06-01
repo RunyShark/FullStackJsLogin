@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-//import { useDispatch, useSelector } from "react-redux";
-//import { register } from "../../../store/actions";
 import Alerta from "../../helpers/Alerta";
 
 const validation = (values) => {
   const errors = {};
   let pattern = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{3,30}$$/;
-  let regexComments = /^.{1,300}$/;
-  let correo = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
   if (!values.nombre.trim()) {
     errors.nombre = "El campo es requerido";
   } else if (!pattern.test(!values.nombre.trim())) {
@@ -39,8 +36,6 @@ const validation = (values) => {
 };
 
 const Registrar = () => {
-  //const dispatch = useDispatch();
-  //const { errosBack } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
   const [alerta, setAlerta] = useState({});
   const [form, setForm] = useState({
@@ -59,7 +54,10 @@ const Registrar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:4000/api/veterinarios`, form);
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios`,
+        form
+      );
       setAlerta({
         msg: "Revisa tu email para confirmar la cuenta",
         error: false,
@@ -83,25 +81,6 @@ const Registrar = () => {
         setAlerta({});
       }, 5000);
     }
-    // dispatch(register(form));
-    // if (!errosBack) {
-    //   setAlerta({
-    //     msg: "Revisa tu email para confirmar la cuenta",
-    //     error: false,
-    //   });
-    //   setTimeout(() => {
-    //     setAlerta({});
-    //   }, 3000);
-    // } else {
-    //   setAlerta({
-    //     msg: errosBack,
-    //     error: true,
-    //   });
-    //   setTimeout(() => {
-    //     setAlerta({});
-    //     window.location.reload(alert(errosBack));
-    //   }, 5000);
-    // }
   };
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

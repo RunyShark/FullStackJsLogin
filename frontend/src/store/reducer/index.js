@@ -1,15 +1,14 @@
-import { REGISTER } from "../actions";
+import { CONFIRMARCUENTA } from "../actions";
 const initialState = {
-  nuevo: [],
-  errosBack: "",
+  cuenta: {},
 };
 
 const rootReducer = (state = initialState, actions) => {
   switch (actions.type) {
-    case REGISTER:
+    case CONFIRMARCUENTA:
       return {
         ...state,
-        errosBack: actions.payload,
+        cuenta: actions.payload,
       };
     default:
       return state;

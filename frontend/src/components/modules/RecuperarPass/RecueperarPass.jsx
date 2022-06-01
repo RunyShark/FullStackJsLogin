@@ -1,37 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-const validation = (values) => {
-  const errors = {};
-  let pattern = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{3,30}$$/;
-  let regexComments = /^.{1,300}$/;
-  let correo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-  if (!values.email.trim()) {
-    errors.email = "El campo es requerido";
-  } else if (!correo.test(!values.email.trim())) {
-    errors.email = "¡Debe de ser un correo valido!";
-  }
-
-  return errors;
-};
+import axios from "axios";
+import Alerta from "../../helpers/Alerta";
 
 const RecueperarPass = () => {
-  const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({
-    email: "",
-  });
-  const handleOnblur = (e) => {
-    handleChange(e);
-    setErrors(validation(form));
-  };
-  const handleSubmit = (e) => {
-    e.preventdefault();
-  };
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const [alerta, setAlerta] = useState({});
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/recuperar-password`,
+        { email }
+      );
+      setAlerta({
+        msg: data.msg,
+        error: false,
+      });
+      setEmail(" ");
+      setTimeout(() => {
+        setAlerta({});
+      }, 5000);
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      });
+      setTimeout(() => {
+        setAlerta({});
+      }, 5000);
+    }
   };
 
+  const { msg } = alerta;
   return (
     <>
       <div>
@@ -41,24 +43,20 @@ const RecueperarPass = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+        {msg && <Alerta alerta={alerta} />}
         <form onSubmit={handleSubmit}>
           <div>
             <label className="uppercase text-gray-600  block text-xl font-bold mt-3">
               Correo
               <input
-                id="2"
                 type="email"
                 name="email"
-                value={form.email}
                 placeholder="Escribe tu correo"
-                onChange={handleChange}
-                onBlur={handleOnblur}
                 required
                 className="border w-full p-3 mt-3 bg-gray-50 rounded"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              {errors.email && (
-                <p className="text-red-600 text-sm">{errors.email}</p>
-              )}
             </label>
           </div>
 
