@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     recuperarContra({
       email,
       nombre: exiteEmail.nombre,
-      toke: exiteEmail.toke,
+      token: exiteEmail.toke,
     });
     res.json({ msg: "Hemos enviado un email con las instrucciones" });
   } catch (error) {

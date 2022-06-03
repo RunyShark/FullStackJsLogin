@@ -1,44 +1,44 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-const validation = (values) => {
-  const errors = {};
-
-  let correo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-  if (!values.email.trim()) {
-    errors.email = "El campo es requerido";
-  } else if (!correo.test(!values.email.trim())) {
-    errors.email = "¡Debe de ser un correo valido!";
-  }
-
-  if (!values.password.trim()) {
-    errors.password = "El campo es requerido";
-  }
-
-  return errors;
-};
+import useAuth from "../../../hooks/useAuth";
+import Alerta from "../../helpers/Alerta";
+import axios from "axios";
 
 const Login = () => {
+  const { auth } = useAuth();
+
+  const [alerta, setAlerta] = useState({});
+
   const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({
-    nombre: "",
-    email: "",
-    password: "",
-    telefono: "",
-    web: "",
-  });
-  const handleOnblur = (e) => {
-    handleChange(e);
-    setErrors(validation(form));
-  };
-  const handleSubmit = (e) => {
-    e.preventdefault();
-  };
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if ([email, password].includes("")) {
+      setAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+
+      return;
+    }
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios/login`,
+        { email, password }
+      );
+
+      localStorage.setItem("token", data.token);
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
   };
 
+  const { msg } = alerta;
   return (
     <>
       <div>
@@ -48,6 +48,7 @@ const Login = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+        {msg && <Alerta alerta={alerta} />}
         <form onSubmit={handleSubmit}>
           <div>
             <label className="uppercase text-gray-600  block text-xl font-bold mt-3">
@@ -56,16 +57,11 @@ const Login = () => {
                 id="2"
                 type="email"
                 name="email"
-                value={form.email}
+                value={email}
                 placeholder="Escribe tu correo"
-                onChange={handleChange}
-                onBlur={handleOnblur}
-                required
+                onChange={(e) => setEmail(e.target.value)}
                 className="border w-full p-3 mt-3 bg-gray-50 rounded"
               />
-              {errors.email && (
-                <p className="text-red-600 text-sm">{errors.email}</p>
-              )}
             </label>
           </div>
           <div>
@@ -74,16 +70,11 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                value={form.password}
+                value={password}
                 placeholder="Escribe una contraseña"
-                onChange={handleChange}
-                onBlur={handleOnblur}
-                required
+                onChange={(e) => setPassword(e.target.value)}
                 className="border w-full p-3 mt-3 bg-gray-50 rounded"
               />
-              {errors.password && (
-                <p className="text-red-600 text-sm">{errors.password}</p>
-              )}
             </label>
           </div>
 

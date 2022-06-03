@@ -3,17 +3,17 @@ const { Veterinario } = require("../../../models/Veterinario");
 
 const router = Router();
 
-router.get("/:toke", async (req, res) => {
+router.get("/:token", async (req, res) => {
   try {
-    const { toke } = req.params;
+    const { token } = req.params;
 
-    const usuarioConfirmar = await Veterinario.findOne({ toke });
+    const usuarioConfirmar = await Veterinario.findOne({ token });
 
     if (!usuarioConfirmar) {
-      const error = new Error("Vuelva a intentar token no valido");
+      const error = new Error("Vuelva a intentar tokenn no valido");
       return res.status(404).json({ msg: error.message });
     }
-    usuarioConfirmar.toke = null;
+    usuarioConfirmar.token = null;
     usuarioConfirmar.confirmado = true;
     await usuarioConfirmar.save();
     return res.json({ msg: "Registro exitoso" });

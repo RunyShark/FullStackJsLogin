@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
       emailRegistro({
         email,
         nombre,
-        toke: addVeterinario.toke,
+        token: addVeterinario.token,
       });
 
       res.json(addVeterinario);

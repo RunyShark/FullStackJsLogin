@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Alerta from "../../helpers/Alerta";
 const NewPass = () => {
-  const { toke } = useParams();
+  const { token } = useParams();
   const [alerta, setAlerta] = useState({});
-  const [tokeValido, setTokeValido] = useState(false);
+  const [tokenValido, setTokenValido] = useState(false);
   const [passModi, setPassModi] = useState(false);
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const NewPass = () => {
     try {
       const url = `${
         import.meta.env.VITE_BACKEND_URL
-      }/api/recuperar-password/${toke}`;
+      }/api/recuperar-password/${token}`;
       const { data } = await axios.post(url, { password });
       setPassModi(true);
       setAlerta({
@@ -36,16 +36,16 @@ const NewPass = () => {
   };
 
   useEffect(() => {
-    const comprobarToke = async () => {
+    const comprobarToken = async () => {
       try {
         await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/recuperar-password/${toke}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/recuperar-password/${token}`
         );
         setAlerta({
           msg: "Coloca tu nueva contraseña",
           error: false,
         });
-        setTokeValido(true);
+        setTokenValido(true);
       } catch (error) {
         setAlerta({
           msg: "Hubo un error, vuelve a intentar",
@@ -53,7 +53,7 @@ const NewPass = () => {
         });
       }
     };
-    comprobarToke();
+    comprobarToken();
   }, []);
 
   const handleChange = (e) => {
@@ -72,7 +72,7 @@ const NewPass = () => {
 
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
         {msg && <Alerta alerta={alerta} />}
-        {tokeValido && (
+        {tokenValido && (
           <>
             <form onSubmit={handleSubmit}>
               <div>

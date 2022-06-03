@@ -5,19 +5,22 @@ import RecueperarPass from "./components/modules/RecuperarPass/RecueperarPass";
 import ConfirmarCuenta from "./components/modules/ConfirmarCuenta/ConfirmarCuenta";
 import Registrar from "./components/modules/Registrar/Registrar";
 import NewPass from "./components/modules/NewPass/NewPass";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route index element={<Login />} />
-          <Route path="registrar" element={<Registrar />} />
-          <Route path="recueperar-pass" element={<RecueperarPass />} />
-          <Route path="recueperar-pass/:toke" element={<NewPass />} />
-          <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Login />} />
+            <Route path="registrar" element={<Registrar />} />
+            <Route path="recueperar-pass" element={<RecueperarPass />} />
+            <Route path="recueperar-pass/:token" element={<NewPass />} />
+            <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </>
   );
 }

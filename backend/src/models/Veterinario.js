@@ -27,7 +27,7 @@ const veterinarioSchema = mongoose.Schema({
     type: String,
     default: null,
   },
-  toke: {
+  token: {
     type: String,
     default: generarId(),
   },

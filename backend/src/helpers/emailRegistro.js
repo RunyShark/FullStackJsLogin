@@ -9,7 +9,7 @@ const emailRegistro = async (datos) => {
       pass: process.env.EMAIL_PASS,
     },
   });
-  const { email, nombre, toke } = datos;
+  const { email, nombre, token } = datos;
 
   const info = await transport.sendMail({
     from: "Dario Dev APP de pacientes de veterinaria",
@@ -19,7 +19,7 @@ const emailRegistro = async (datos) => {
     html: `<h2>Administracion App veterinaria</h2>
     <p>Hola: ${nombre}, comprueba tu cuenta para completar el registro </p>
     <p>Click en el siguente enlace para finalizar con el registro:
-    <a href="${process.env.FRONTEND_URL}/confirmar/${toke}">Comprobar cueta</a></p>
+    <a href="${process.env.FRONTEND_URL}/confirmar/${token}">Comprobar cueta</a></p>
 
     <p><span>Si tu no creaste la cuenta, puedes ignorar el mensaje ☺</span></p>
     `,
