@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import Alerta from "../../helpers/Alerta";
+import Alerta from "../../../helpers/Alerta";
 const NewPass = () => {
   const { token } = useParams();
   const [alerta, setAlerta] = useState({});

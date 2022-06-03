@@ -21,9 +21,10 @@ const AuthProvider = ({ children }) => {
           `http://localhost:4000/api/perfil`,
           config
         );
-        console.log(data);
+        setAuth({ data });
       } catch (error) {
         console.log(error.respose.data.msg);
+        setAuth({});
       }
     };
     autenteicarUsuario();

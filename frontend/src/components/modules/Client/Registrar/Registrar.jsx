@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../helpers/Alerta";
+import Alerta from "../../../helpers/Alerta";
 
 const validation = (values) => {
   const errors = {};
