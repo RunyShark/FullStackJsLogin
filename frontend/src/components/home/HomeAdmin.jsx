@@ -1,14 +1,23 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import Header from "../helpers/Header";
+import Footer from "../helpers/Footer";
 
 const HomeAdmin = () => {
   const { auth, cargando } = useAuth();
-  console.log(auth);
+
   if (cargando) return "Cargando...";
   return (
     <>
-      <h1>Admin</h1>
-      {auth?._id ? <Outlet /> : <Navigate to="/" />}
+      <Header />
+      {auth?._id ? (
+        <main className="conteiner mx-auto mt-20">
+          <Outlet />
+        </main>
+      ) : (
+        <Navigate to="/" />
+      )}
+      <Footer />
     </>
   );
 };
