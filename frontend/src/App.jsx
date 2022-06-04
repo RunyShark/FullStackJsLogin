@@ -11,28 +11,31 @@ import Crear from "./components/modules/Admin/Crear/Crear";
 import Modificar from "./components/modules/Admin/Modificar/Modificar";
 import Borrar from "./components/modules/Admin/Borrar/Borrar";
 import { AuthProvider } from "./context/AuthProvider";
+import { PacientesProvider } from "./context/PacientesProvider";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route index element={<Login />} />
-              <Route path="registrar" element={<Registrar />} />
-              <Route path="recueperar-pass" element={<RecueperarPass />} />
-              <Route path="recueperar-pass/:token" element={<NewPass />} />
-              <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
-            </Route>
+          <PacientesProvider>
+            <Routes>
+              <Route path="/" element={<Home />}>
+                <Route index element={<Login />} />
+                <Route path="registrar" element={<Registrar />} />
+                <Route path="recueperar-pass" element={<RecueperarPass />} />
+                <Route path="recueperar-pass/:token" element={<NewPass />} />
+                <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
+              </Route>
 
-            <Route path="/admin" element={<HomeAdmin />}>
-              <Route index element={<AdministrarPacientes />} />
-              <Route path="crear" element={<Crear />} />
-              <Route path="modificar" element={<Modificar />} />
-              <Route path="borrar" element={<Borrar />} />
-            </Route>
-          </Routes>
+              <Route path="/admin" element={<HomeAdmin />}>
+                <Route index element={<AdministrarPacientes />} />
+                <Route path="crear" element={<Crear />} />
+                <Route path="modificar" element={<Modificar />} />
+                <Route path="borrar" element={<Borrar />} />
+              </Route>
+            </Routes>
+          </PacientesProvider>
         </AuthProvider>
       </BrowserRouter>
     </>
