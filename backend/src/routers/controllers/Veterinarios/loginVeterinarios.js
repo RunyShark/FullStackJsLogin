@@ -19,7 +19,12 @@ router.post("/", async (req, res) => {
     }
 
     if (await userExite.comprobarPassword(password)) {
-      res.json({ token: generarJWT(userExite.id) });
+      res.json({
+        _id: userExite._id,
+        nombre: userExite.nombre,
+        email: userExite.email,
+        token: generarJWT(userExite.id),
+      });
     } else {
       res.status(403).json({ msg: "Password incorrecto" });
     }

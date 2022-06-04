@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Login = () => {
   const navegate = useNavigate();
-  const { auth } = useAuth();
+  const { setAuth } = useAuth();
   const [alerta, setAlerta] = useState({});
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
@@ -29,6 +29,7 @@ const Login = () => {
       );
 
       localStorage.setItem("token", data.token);
+      setAuth(data);
       navegate("/admin");
     } catch (error) {
       setAlerta({
