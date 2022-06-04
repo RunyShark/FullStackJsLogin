@@ -6,7 +6,7 @@ import RecueperarPass from "./components/modules/Client/RecuperarPass/Recueperar
 import ConfirmarCuenta from "./components/modules/Client/ConfirmarCuenta/ConfirmarCuenta";
 import Registrar from "./components/modules/Client/Registrar/Registrar";
 import NewPass from "./components/modules/Client/NewPass/NewPass";
-import Pacientes from "./components/modules/Admin/Pacientes/Pacientes";
+import AdministrarPacientes from "./components/modules/Admin/AdministrarPacientes/AdministrarPacientes";
 import Crear from "./components/modules/Admin/Crear/Crear";
 import Modificar from "./components/modules/Admin/Modificar/Modificar";
 import Borrar from "./components/modules/Admin/Borrar/Borrar";
@@ -27,7 +27,7 @@ function App() {
             </Route>
 
             <Route path="/admin" element={<HomeAdmin />}>
-              <Route index element={<Pacientes />} />
+              <Route index element={<AdministrarPacientes />} />
               <Route path="crear" element={<Crear />} />
               <Route path="modificar" element={<Modificar />} />
               <Route path="borrar" element={<Borrar />} />
