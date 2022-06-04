@@ -4,7 +4,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
   const { veterinario } = req;
-  res.json({ User: veterinario });
+  res.json({ perfil: veterinario });
 });
 
 module.exports = router;

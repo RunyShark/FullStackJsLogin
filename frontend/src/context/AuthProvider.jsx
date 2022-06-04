@@ -4,11 +4,15 @@ import axios from "axios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const [cargando, setCargando] = useState(true);
   const [auth, setAuth] = useState({});
   useEffect(() => {
     const autenteicarUsuario = async () => {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        setCargando(false);
+        return;
+      }
 
       const config = {
         headers: {
@@ -17,15 +21,15 @@ const AuthProvider = ({ children }) => {
         },
       };
       try {
-        const { data } = await axios.get(
+        const { data } = await axios(
           `http://localhost:4000/api/perfil`,
           config
         );
-        setAuth({ data });
+        setAuth(data.perfil);
       } catch (error) {
-        console.log(error.respose.data.msg);
         setAuth({});
       }
+      setCargando(false);
     };
     autenteicarUsuario();
   }, []);
@@ -35,6 +39,7 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
+        cargando,
       }}
     >
       {children}
