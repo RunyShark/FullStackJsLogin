@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Alerta from "../../../helpers/Alerta";
+import usePacientes from "../../../../hooks/usePacientes";
 
 const Crear = () => {
+  const { guardarPaciente } = usePacientes();
+
   const [paciente, setPaciente] = useState({
     nombre: "",
     propietario: "",
     email: "",
     fecha: "",
-    sintomas: Date.now(),
+    sintomas: "",
   });
   const [alerta, setAlerta] = useState({});
 
@@ -17,6 +20,15 @@ const Crear = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    guardarPaciente(paciente);
+    setPaciente({
+      nombre: "",
+      propietario: "",
+      email: "",
+      fecha: Date.now(),
+      sintomas: "",
+    });
   };
   const { msg } = alerta;
   return (
