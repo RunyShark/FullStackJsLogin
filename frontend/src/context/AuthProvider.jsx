@@ -38,6 +38,31 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setAuth({});
   };
+  const actualizarPerfil = async (datos) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setCargando(false);
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.put(
+        `http://localhost:4000/api/perfil/${datos._id}`,
+        datos,
+        config
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -46,6 +71,7 @@ const AuthProvider = ({ children }) => {
         setAuth,
         cargando,
         cerrarSesion,
+        actualizarPerfil,
       }}
     >
       {children}

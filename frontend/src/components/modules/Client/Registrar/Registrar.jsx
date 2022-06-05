@@ -53,6 +53,7 @@ const Registrar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios`,
