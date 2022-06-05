@@ -89,7 +89,6 @@ const AuthProvider = ({ children }) => {
         config
       );
 
-      console.log(data);
       return {
         msg: data.msg,
       };
