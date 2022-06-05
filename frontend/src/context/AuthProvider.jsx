@@ -69,7 +69,37 @@ const AuthProvider = ({ children }) => {
       };
     }
   };
+  const guardarPasswor = async (datos) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setCargando(false);
+      return;
+    }
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const { data } = axios.put(
+        `http://localhost:4000/api/actualizar-password`,
+        datos,
+        config
+      );
+
+      console.log(data);
+      return {
+        msg: data.msg,
+      };
+    } catch (error) {
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      };
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -78,6 +108,7 @@ const AuthProvider = ({ children }) => {
         cargando,
         cerrarSesion,
         actualizarPerfil,
+        guardarPasswor,
       }}
     >
       {children}

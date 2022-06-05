@@ -2,15 +2,39 @@ import React, { useState, useEffect } from "react";
 
 import AdminNav from "../AdminNav/AdminNav";
 import Alerta from "../../../helpers/Alerta";
+import useAuth from "../../../../hooks/useAuth";
+
 const CambiasPassw = () => {
+  const { guardarPasswor } = useAuth();
   const [alerta, setAlerta] = useState({});
 
-  const [password, setPassword] = useState("");
-  const haldleOnchage = (e) => {
-    setPerfil({ ...perfil, [e.target.name]: e.target.value });
+  const [password, setPassword] = useState({
+    pwd_actual: "",
+    pwd_nuevo: "",
+  });
+  const haldleOnchage = async (e) => {
+    setPassword({ ...password, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (Object.values(password).some((campo) => campo === "")) {
+      setAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+
+    if (password.pwd_nuevo.length < 6) {
+      setAlerta({
+        msg: "Debe de tener por los menos 6 caracteres",
+        error: true,
+      });
+      return;
+    }
+
+    const respuesta = await guardarPasswor(password);
+    setAlerta(respuesta);
   };
   const { msg } = alerta;
   return (
@@ -31,10 +55,10 @@ const CambiasPassw = () => {
                 Contraseña actual
               </label>
               <input
-                type="text"
+                type="password"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                name="password"
-                value={password}
+                name="pwd_actual"
+                value={password.pwd_actual}
                 placeholder="Escribe tu contraseña actual"
                 onChange={haldleOnchage}
               />
@@ -44,24 +68,11 @@ const CambiasPassw = () => {
                 Nueva contraseña
               </label>
               <input
-                type="text"
+                type="password"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                name="password"
-                value={password}
+                name="pwd_nuevo"
+                value={password.pwd_nuevo}
                 placeholder="Escribe tu nueva contraseña"
-                onChange={haldleOnchage}
-              />
-            </div>
-            <div className="my-3">
-              <label className="uppercase font-bold text-gray-700">
-                Comprueba
-              </label>
-              <input
-                type="text"
-                className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                name="password"
-                value={password}
-                placeholder="Comprueba tu nueva contraseña"
                 onChange={haldleOnchage}
               />
             </div>
