@@ -7,9 +7,7 @@ import ConfirmarCuenta from "./components/modules/Client/ConfirmarCuenta/Confirm
 import Registrar from "./components/modules/Client/Registrar/Registrar";
 import NewPass from "./components/modules/Client/NewPass/NewPass";
 import AdministrarPacientes from "./components/modules/Admin/AdministrarPacientes/AdministrarPacientes";
-import Crear from "./components/modules/Admin/Crear/Crear";
 import Modificar from "./components/modules/Admin/Modificar/Modificar";
-import Borrar from "./components/modules/Admin/Borrar/Borrar";
 import { AuthProvider } from "./context/AuthProvider";
 import { PacientesProvider } from "./context/PacientesProvider";
 
@@ -30,9 +28,7 @@ function App() {
 
               <Route path="/admin" element={<HomeAdmin />}>
                 <Route index element={<AdministrarPacientes />} />
-                <Route path="crear" element={<Crear />} />
-                <Route path="modificar" element={<Modificar />} />
-                <Route path="borrar" element={<Borrar />} />
+                <Route path="perfil" element={<Modificar />} />
               </Route>
             </Routes>
           </PacientesProvider>
