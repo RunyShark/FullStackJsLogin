@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Alerta from "../../../helpers/Alerta";
 
-import useAuth from "../../../../hooks/useAuth";
-
 const RecueperarPass = () => {
-  const { auth } = useAuth();
   const [alerta, setAlerta] = useState({});
   const [email, setEmail] = useState("");
 

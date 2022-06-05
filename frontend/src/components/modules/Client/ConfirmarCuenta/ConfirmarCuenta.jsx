@@ -14,14 +14,18 @@ const ConfirmarCuenta = () => {
       try {
         const url = `${import.meta.env.VITE_BACKEND_URL}/api/confirmar/${id}`;
         const { data } = await axios.get(url);
-        console.log(data);
         setCuentaConfirmada(true);
         setAlerta({
           msg: data.msg,
           error: false,
         });
         return;
-      } catch (error) {}
+      } catch (error) {
+        setAlerta({
+          msg: error.response.data.msg,
+          error: true,
+        });
+      }
       setCargando(false);
     };
     con();
@@ -37,13 +41,18 @@ const ConfirmarCuenta = () => {
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
         {!cargando && <Alerta alerta={alerta} />}
-        {cuentaConfirmada && (
+        {cuentaConfirmada === true ? (
           <Link to="/" className="block text-center my-5 text-gray-500 text-xl">
             Ya esta todo listo 🙌
             <span className="font-bold text-slate-700 text-lg">
               {" "}
               inicia sesion
             </span>
+          </Link>
+        ) : (
+          <Link to="/" className="block text-center my-5 text-gray-500 text-xl">
+            Registrate para obtener una
+            <span className="font-bold text-slate-700 text-lg"> cueta</span>
           </Link>
         )}
       </div>

@@ -1,5 +1,8 @@
+import usePacientes from "../../../../hooks/usePacientes";
+
 const Cards = ({ e }) => {
-  const { nombre, propietario, email, fecha, sintomas } = e;
+  const { putPaciente, eliminarPaciente } = usePacientes();
+  const { nombre, propietario, email, fecha, sintomas, _id } = e;
 
   const formaterFecha = (fecha) => {
     const nuevaFecha = new Date(fecha);
@@ -33,6 +36,22 @@ const Cards = ({ e }) => {
         Sintomas:{" "}
         <span className="font-normal normal-case text-black">{sintomas}</span>
       </p>
+      <div className="flex justify-between my-5">
+        <button
+          type="button"
+          className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white uppercase font-bold rounded-lg"
+          onClick={() => putPaciente(e)}
+        >
+          Editar paciente
+        </button>
+        <button
+          type="button"
+          className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white uppercase font-bold rounded-lg"
+          onClick={() => eliminarPaciente(_id)}
+        >
+          Eliminar paciente
+        </button>
+      </div>
     </div>
   );
 };
