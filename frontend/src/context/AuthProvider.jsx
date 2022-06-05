@@ -58,9 +58,15 @@ const AuthProvider = ({ children }) => {
         datos,
         config
       );
-      console.log(data);
+      return {
+        msg: "Almacenado correctamente",
+        error: true,
+      };
     } catch (error) {
-      console.log(error.response);
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      };
     }
   };
 

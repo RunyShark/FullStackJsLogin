@@ -14,7 +14,7 @@ const Modificar = () => {
   const haldleOnchage = (e) => {
     setPerfil({ ...perfil, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { nombre, email } = perfil;
@@ -24,7 +24,8 @@ const Modificar = () => {
         error: true,
       });
     }
-    actualizarPerfil(perfil);
+    const resultado = await actualizarPerfil(perfil);
+    setAlerta(resultado);
   };
   const { msg } = alerta;
   return (

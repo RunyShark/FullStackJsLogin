@@ -15,7 +15,14 @@ router.put("/:id", async (req, res) => {
   const veterinario = await Veterinario.findById(id);
   if (!veterinario) {
     const error = new Error("No se encontro doctor");
-    return res.status(400).json({ msg: error });
+    return res.status(400).json({ msg: error.message });
+  }
+  if (veterinario.email !== email) {
+    const existeEmail = await Veterinario.findOne({ email });
+    if (existeEmail) {
+      const error = new Error("El correo ya existe");
+      return res.status(400).json({ msg: error.message });
+    }
   }
 
   try {
