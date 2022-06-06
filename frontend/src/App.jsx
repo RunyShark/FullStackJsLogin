@@ -8,7 +8,7 @@ import Registrar from "./components/modules/Client/Registrar/Registrar";
 import NewPass from "./components/modules/Client/NewPass/NewPass";
 import AdministrarPacientes from "./components/modules/Admin/AdministrarPacientes/AdministrarPacientes";
 import Modificar from "./components/modules/Admin/Modificar/Modificar";
-import CambiasPassw from "./components/modules/Admin/cambiasPassw/CambiasPassw";
+//import CambiasPassw from "./components/modules/Admin/cambiasPassw/CambiasPassw";
 import { AuthProvider } from "./context/AuthProvider";
 import { PacientesProvider } from "./context/PacientesProvider";
 
@@ -30,7 +30,6 @@ function App() {
               <Route path="/admin" element={<HomeAdmin />}>
                 <Route index element={<AdministrarPacientes />} />
                 <Route path="perfil" element={<Modificar />} />
-                <Route path="cambiar-pass" element={<CambiasPassw />} />
               </Route>
             </Routes>
           </PacientesProvider>
