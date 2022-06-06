@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import AdminNav from "../AdminNav/AdminNav";
 import Alerta from "../../../helpers/Alerta";
